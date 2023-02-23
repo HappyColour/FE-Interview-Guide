@@ -95,8 +95,7 @@
       }
       person.greet(); // print "Hello，my name is Danny！"
   
-  对象遍历：
-  可以使用for...in循环或Object.keys()方法来遍历对象的属性。例如：
+  对象遍历：可以使用for...in循环或Object.keys()方法来遍历对象的属性。例如：
       for(const key in person) {
         console.log(`${key}：${person[key]}`)
       }
@@ -108,5 +107,38 @@
       person2.name = 'Choco'
       console.log(person.name) // print 'Danny'
       console.log(person2.name) // print 'Choco'
+  
+  III 数组：
+  数组是一种非常重要的数据类型，它是一组有序的值的集合，每个值可以是任意数据类型，包括数字、字符串、布尔值、对象、函数等。
 
-
+  数组定义：
+  数组可以使用字面量或Array构造函数来创建。字面量定义是最常用的方式，它使用一对方括号包含数组中的值，每个值之间用逗号分隔。例如：
+      const numbers = [1,2,3,4,5]
+  
+  数组访问：
+  可以使用下标（索引）来访问数组中的元素，数组的下标从0开始。例如：
+      console.log(numbers[0]) // print 1
+      console.log(numbers[2]) // print 3
+  
+  数组方法：
+  数组提供了很多常用的方法，例如push()、pop()、shift()、unshift()、slice()、splice()、concat()、join()、reverse()等。这些方法可以对数组进行增删改查等操作。例如：
+      const fruits = ['apple','banana','orange']
+      fruits.push('pear')
+      console.log(fruits) // ['apple','banana','orange','pear']
+      fruits.pop()
+      console.log(fruits) // ['apple','banana','orange']
+      fruits.splice(1,1,'grape','kiwi')
+      console.log(fruits) // ['apple','grape','kiwi','orange']
+  
+  数组遍历：
+  可以使用for循环、forEach()方法、map()方法等来遍历数组中的元素。例如：
+      for(let i = 0;i < fruits.length; i++) { 
+        console.log(fruits[i]) 
+      }
+      fruits.forEach(function(item, index){ 
+        console.log(`${index}：${item}`)
+      })
+      const newFruits = fruits.map(function(item) {
+        return item.toUpperCase();
+      });
+      console.log(newFruits); // 输出 ["APPLE", "GRAPE", "KIWI", "ORANGE"]
