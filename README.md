@@ -130,6 +130,87 @@
       fruits.splice(1,1,'grape','kiwi')
       console.log(fruits) // ['apple','grape','kiwi','orange']
   
+  push()：在数组末尾添加一个或多个元素，并返回新数组的长度。
+      const arr = [1, 2, 3];
+      const length = arr.push(4, 5);
+      console.log(arr); // [1, 2, 3, 4, 5]
+      console.log(length); // 5
+  pop()：从数组末尾删除一个元素，并返回该元素的值。
+      const arr = [1, 2, 3];
+      const value = arr.pop();
+      console.log(arr); // [1, 2]
+      console.log(value); // 3
+  shift()：从数组开头删除一个元素，并返回该元素的值。
+      const arr = [1, 2, 3];
+      const value = arr.shift();
+      console.log(arr); // [2, 3]
+      console.log(value); // 1
+  unshift()：在数组开头添加一个或多个元素，并返回新数组的长度。
+      const arr = [1, 2, 3];
+      const length = arr.unshift(0, -1);
+      console.log(arr); // [0, -1, 1, 2, 3]
+      console.log(length); // 5
+  slice()：返回一个新数组，从原数组中指定的开始索引到结束索引（不包括结束索引）。
+      const arr = [1, 2, 3, 4, 5];
+      const newArr = arr.slice(1, 4);
+      console.log(newArr); // [2, 3, 4]
+  splice()：从数组中删除或添加元素，并返回被删除的元素。
+      const arr = [1, 2, 3, 4, 5];
+      const deletedArr = arr.splice(1, 2, 6, 7);
+      console.log(arr); // [1, 6, 7, 4, 5]
+      console.log(deletedArr); // [2, 3]
+  concat()：将两个或多个数组合并成一个新数组。
+      const arr1 = [1, 2, 3];
+      const arr2 = [4, 5, 6];
+      const newArr = arr1.concat(arr2);
+      console.log(newArr); // [1, 2, 3, 4, 5, 6]
+  join()：将数组中的所有元素转换为字符串，并使用指定的分隔符连接起来。
+      const arr = [1, 2, 3];
+      const str = arr.join('-');
+      console.log(str); // '1-2-3'
+  reverse()：将数组中的元素顺序颠倒。
+      const arr = [1, 2, 3];
+      arr.reverse();
+      console.log(arr); // [3, 2, 1]
+  forEach()：对数组中的每个元素执行指定的操作。
+      const arr = [1, 2, 3];
+      arr.forEach((item, index) => {
+        console.log(`index=${index}, item=${item}`);
+      });
+      // 输出：
+      // index=0, item=1
+      //
+  map()：对数组中的每个元素执行指定的操作，并返回操作后的新数组。
+      const arr = [1, 2, 3];
+      const newArr = arr.map((item, index) => {
+        return item * index;
+      });
+      console.log(newArr); // [0, 2, 6]
+  filter()：根据指定的条件过滤数组中的元素，并返回符合条件的新数组。
+      const arr = [1, 2, 3, 4, 5];
+      const newArr = arr.filter((item) => {
+        return item % 2 === 0;
+      });
+      console.log(newArr); // [2, 4]
+  reduce()：对数组中的每个元素执行指定的操作，并返回一个累加器的结果。
+      const arr = [1, 2, 3, 4, 5];
+      const result = arr.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue;
+      });
+      console.log(result); // 15
+  some()：判断数组中是否存在符合指定条件的元素，如果存在则返回true，否则返回false。
+      const arr = [1, 2, 3, 4, 5];
+      const hasEvenNumber = arr.some((item) => {
+        return item % 2 === 0;
+      });
+      console.log(hasEvenNumber); // true
+  every()：判断数组中的所有元素是否都符合指定的条件，如果都符合则返回true，否则返回false。
+      const arr = [1, 2, 3, 4, 5];
+      const allEvenNumber = arr.every((item) => {
+        return item % 2 === 0;
+      });
+      console.log(allEvenNumber); // false
+
   数组遍历：
   可以使用for循环、forEach()方法、map()方法等来遍历数组中的元素。例如：
       for(let i = 0;i < fruits.length; i++) { 
@@ -142,3 +223,15 @@
         return item.toUpperCase();
       });
       console.log(newFruits); // 输出 ["APPLE", "GRAPE", "KIWI", "ORANGE"]
+  
+  数组复制：
+  可以使用slice()方法或扩展运算符（...）来复制数组。例如：
+      const newNumbers = numbers.slice();
+      newNumbers[0] = 100;
+      console.log(numbers); // 输出 [1, 2, 3, 4, 5]
+      console.log(newNumbers); // 输出 [100, 2, 3, 4, 5]
+
+      const newFruits = [...fruits];
+      newFruits[0] = 'pear';
+      console.log(fruits); // 输出 ["apple", "grape", "kiwi", "orange"]
+      console.log(newFruits); // 输出 ["pear", "grape", "kiwi", "orange"]
