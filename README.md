@@ -336,6 +336,37 @@
 
   需要注意的是，深拷贝可能会很慢，尤其是对于大型的对象和数组。因此，在实际使用中，需要根据具体情况选择合适的方法来进行拷贝。
 
+  原型链：
+  在 JavaScript 中，每个对象都有一个内部属性称为原型（prototype），它指向另一个对象，这个对象也可能有自己的原型，形成了一个原型链（prototype chain）。
+
+  当访问一个对象的属性或方法时，如果这个对象本身没有这个属性或方法，JavaScript 引擎会沿着这个对象的原型链向上查找，直到找到该属性或方法或者到达原型链的顶部（即 Object.prototype）。如果没有找到，就会返回 undefined。
+
+  以下是一个简单的例子，说明原型链的工作方式：
+
+      function Person(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+
+      Person.prototype.sayHello = function() {
+        console.log(`Hello, my name is ${this.name}`);
+      };
+
+      const john = new Person("John", 30);
+
+      john.sayHello(); // 输出 "Hello, my name is John"
+
+      console.log(john.hasOwnProperty("name")); // 输出 true
+      console.log(john.hasOwnProperty("sayHello")); // 输出 false
+
+  在这个例子中，我们创建了一个 Person 构造函数，并将它的原型添加了一个 sayHello 方法。当我们创建一个名为 john 的 Person 对象时，它继承了 Person 构造函数的属性和方法，并且它的原型指向了 Person.prototype。
+
+  当我们调用 john 的 sayHello 方法时，JavaScript 引擎会先检查 john 对象本身是否有这个方法，如果没有，它就会沿着 john 对象的原型链向上查找，并找到了 Person.prototype 上的 sayHello 方法。
+
+  当我们使用 hasOwnProperty 方法检查 john 对象是否有 name 和 sayHello 属性时，它会返回 true 和 false。这是因为 name 是 john 对象本身的属性，而 sayHello 是继承自原型链上的属性。
+
+  总之，原型链是 JavaScript 中实现继承的机制之一，它允许对象继承另一个对象的属性和方法，并且可以形成一个层级结构，使得继承关系变得清晰和可维护。
+
 
 
 
