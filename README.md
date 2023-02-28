@@ -243,28 +243,28 @@
 
   例如，我们可以定义一个名为 Person 的构造函数，用于创建人员对象：
 
-  function Person(name, age) {
-    this.name = name;
-    this.age = age;
-    this.greet = function() {
-      console.log(`Hello, my name is ${this.name} and I'm ${this.age} years old.`);
-    };
-  }
+      function Person(name, age) {
+        this.name = name;
+        this.age = age;
+        this.greet = function() {
+          console.log(`Hello, my name is ${this.name} and I'm ${this.age} years old.`);
+        };
+      }
 
   上述代码中，Person 构造函数接受两个参数 name 和 age，并将它们赋值给 this 对象的 name 和 age 属性。同时，Person 构造函数还定义了一个 greet 方法，用于向控制台输出人员信息。
 
   我们可以使用 new 关键字来实例化一个 Person 对象，并调用它的 greet 方法：
 
-  const john = new Person('John', 25);
-  john.greet(); // 输出 "Hello, my name is John and I'm 25 years old."
+      const john = new Person('John', 25);
+      john.greet(); // 输出 "Hello, my name is John and I'm 25 years old."
 
   在 JavaScript 中，我们还可以使用原型继承来创建对象之间的关系。每个对象都有一个 __proto__ 属性，它指向该对象的原型。通过修改原型对象，我们可以添加属性和方法，并使其在所有实例之间共享。
 
   例如，我们可以向 Person 的原型对象中添加一个 sayHi 方法：
 
-  Person.prototype.sayHi = function() {
-    console.log(`Hi, my name is ${this.name}.`);
-  };
+      Person.prototype.sayHi = function() {
+        console.log(`Hi, my name is ${this.name}.`);
+      };
 
   现在，我们可以通过 john 对象来调用 sayHi 方法：
 
@@ -274,20 +274,20 @@
 
   例如，我们可以使用 class 关键字来定义一个 Person 类：
 
-  class Person {
-    constructor(name, age) {
-      this.name = name;
-      this.age = age;
-    }
-    
-    greet() {
-      console.log(`Hello, my name is ${this.name} and I'm ${this.age} years old.`);
-    }
-    
-    static sayHi() {
-      console.log('Hi, there.');
-    }
-  }
+      class Person {
+        constructor(name, age) {
+          this.name = name;
+          this.age = age;
+        }
+        
+        greet() {
+          console.log(`Hello, my name is ${this.name} and I'm ${this.age} years old.`);
+        }
+        
+        static sayHi() {
+          console.log('Hi, there.');
+        }
+      }
   上述代码中，Person 类包含一个构造函数和两个实例方法：greet 和一个静态方法 sayHi。
 
   我们可以使用 new 关键字来实例化一个 Person
@@ -297,5 +297,47 @@
   继承：JavaScript 中的继承是通过原型链实现的。当一个对象需要继承另一个对象的属性和方法时，它可以将另一个对象作为它的原型。JavaScript 还提供了一些内置方法，如 Object.create 和 Object.setPrototypeOf，用于设置对象的原型。
   构造函数：在 JavaScript 中，构造函数是一种特殊的函数，用于创建新的对象并设置它的属性和方法。构造函数使用 this 关键字来引用正在创建的对象，并且通常使用 new 关键字来实例化对象。
   类：在 ES6 中，JavaScript 引入了类的概念，使面向对象编程更加直观和易读。类是一种语法糖，它基于原型继承，让面向对象编程更加直观和易读。
+
+  深拷贝：
+  在 JavaScript 中，对象和数组是引用类型，即它们的值实际上是存储在内存中的地址。因此，在进行对象和数组的复制时，只是将它们的引用复制了一份，而不是将它们的值复制一份，这就是浅拷贝（shallow copy）。浅拷贝有时会导致意外的结果，因为对原始对象或数组的更改会影响所有引用该对象或数组的变量。
+
+  为了解决这个问题，可以使用深拷贝（deep copy）来创建一个完全独立于原始对象或数组的副本。深拷贝会递归地复制对象或数组中的所有属性和元素，并将它们的值复制一份。这样，即使对原始对象或数组进行更改，也不会影响复制后的对象或数组。
+
+  以下是几种实现深拷贝的方法：
+
+  1. 使用 JSON.stringify 和 JSON.parse：JSON.stringify 可以将 JavaScript 对象或数组转换为 JSON 字符串，JSON.parse 可以将 JSON 字符串转换为 JavaScript 对象或数组。这种方法的缺点是，它无法处理函数和循环引用。
+  
+      const originalObj = { a: 1, b: { c: 2 } };
+      const copiedObj = JSON.parse(JSON.stringify(originalObj));
+  
+  2. 使用递归函数：递归函数可以遍历对象或数组中的所有属性和元素，并递归地复制它们。这种方法可以处理函数和循环引用。
+
+      function deepClone(obj) {
+        if (typeof obj !== "object" || obj === null) {
+          return obj;
+        }
+
+        const newObj = Array.isArray(obj) ? [] : {};
+
+        for (let key in obj) {
+          newObj[key] = deepClone(obj[key]);
+        }
+
+        return newObj;
+      }
+
+      const originalObj = { a: 1, b: { c: 2 } };
+      const copiedObj = deepClone(originalObj);
+
+  3. 使用第三方库：许多第三方库，如 lodash、jQuery 等，都提供了实现深拷贝的方法。这些方法通常支持函数、循环引用和其他特殊情况。
+
+    const originalObj = { a: 1, b: { c: 2 } };
+    const copiedObj = _.cloneDeep(originalObj);
+
+  需要注意的是，深拷贝可能会很慢，尤其是对于大型的对象和数组。因此，在实际使用中，需要根据具体情况选择合适的方法来进行拷贝。
+
+
+
+
 
 
