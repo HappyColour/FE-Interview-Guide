@@ -235,3 +235,60 @@
       newFruits[0] = 'pear';
       console.log(fruits); // 输出 ["apple", "grape", "kiwi", "orange"]
       console.log(newFruits); // 输出 ["pear", "grape", "kiwi", "orange"]
+  
+  面向对象编程：
+  JavaScript 是一种面向对象的编程语言，它采用了基于原型的面向对象编程范式。在 JavaScript 中，所有的对象都有一个原型，它们从其原型中继承属性和方法。这种基于原型的面向对象编程方式与基于类的面向对象编程方式不同。
+
+  JavaScript 中的对象可以通过构造函数来创建，构造函数是一种特殊的函数，用于创建新对象并设置其属性和方法。在构造函数中使用 this 关键字来定义对象的属性和方法，这些属性和方法可以通过 new 关键字来实例化并调用。
+
+  例如，我们可以定义一个名为 Person 的构造函数，用于创建人员对象：
+
+  function Person(name, age) {
+    this.name = name;
+    this.age = age;
+    this.greet = function() {
+      console.log(`Hello, my name is ${this.name} and I'm ${this.age} years old.`);
+    };
+  }
+
+  上述代码中，Person 构造函数接受两个参数 name 和 age，并将它们赋值给 this 对象的 name 和 age 属性。同时，Person 构造函数还定义了一个 greet 方法，用于向控制台输出人员信息。
+
+  我们可以使用 new 关键字来实例化一个 Person 对象，并调用它的 greet 方法：
+
+  const john = new Person('John', 25);
+  john.greet(); // 输出 "Hello, my name is John and I'm 25 years old."
+
+  在 JavaScript 中，我们还可以使用原型继承来创建对象之间的关系。每个对象都有一个 __proto__ 属性，它指向该对象的原型。通过修改原型对象，我们可以添加属性和方法，并使其在所有实例之间共享。
+
+  例如，我们可以向 Person 的原型对象中添加一个 sayHi 方法：
+
+  Person.prototype.sayHi = function() {
+    console.log(`Hi, my name is ${this.name}.`);
+  };
+
+  现在，我们可以通过 john 对象来调用 sayHi 方法：
+
+  john.sayHi(); // 输出 "Hi, my name is John."
+
+  除了原型继承，JavaScript 还支持通过 class 关键字创建类。类是一种语法糖，它基于原型继承，让面向对象编程更加直观和易读。
+
+  例如，我们可以使用 class 关键字来定义一个 Person 类：
+
+  class Person {
+    constructor(name, age) {
+      this.name = name;
+      this.age = age;
+    }
+    
+    greet() {
+      console.log(`Hello, my name is ${this.name} and I'm ${this.age} years old.`);
+    }
+    
+    static sayHi() {
+      console.log('Hi, there.');
+    }
+  }
+  上述代码中，Person 类包含一个构造函数和两个实例方法：greet 和一个静态方法 sayHi。
+
+  我们可以使用 new 关键字来实例化一个 Person
+
