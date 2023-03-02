@@ -435,4 +435,49 @@
   顺序执行多个异步操作，并且不需要处理并发执行；
   使用 try/catch 来捕获和处理异步操作的错误；
   通过 await 关键字来等待异步操作的完成。
+
+  算法：
+  1. 冒泡排序
+  冒泡排序是一种简单的排序算法，基本思想是从头到尾比较相邻的两个元素，如果逆序则交换，直到整个序列有序。
+  代码实现：
+      function bubbleSort(arr) {
+        const len = arr.length;
+        for (let i = 0; i < len - 1; i++) {
+          for (let j = 0; j < len - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+              [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+            }
+          }
+        }
+        return arr;
+      }
+  算法分析：
+    时间复杂度：$O(n^2)$
+    空间复杂度：$O(1)$
+    稳定性：稳定排序
   
+  2. 快速排序
+  快速排序是一种高效的排序算法，基本思想是通过一趟排序将待排记录分割成独立的两部分，其中一部分记录的关键字均比另一部分关键字小，然后分别对这两部分记录继续进行排序，最终得到有序序列。
+
+  代码实现：
+      function quickSort(arr) {
+        if (arr.length <= 1) {
+          return arr;
+        }
+        const pivotIndex = Math.floor(arr.length / 2);
+        const pivot = arr.splice(pivotIndex, 1)[0];
+        const left = [];
+        const right = [];
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i] < pivot) {
+            left.push(arr[i]);
+          } else {
+            right.push(arr[i]);
+          }
+        }
+        return [...quickSort(left), pivot, ...quickSort(right)];
+      }
+  算法分析：
+  时间复杂度：最坏情况下为$O(n^2)$，平均情况下为$O(n\log n)$
+  空间复杂度：最坏情况下为$O(n)$，平均情况下为$O(\log n)$
+  稳定性：不稳定排序
