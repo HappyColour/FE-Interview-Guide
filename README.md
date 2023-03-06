@@ -236,7 +236,8 @@
       newFruits[0] = 'pear';
       console.log(fruits); // 输出 ["apple", "grape", "kiwi", "orange"]
       console.log(newFruits); // 输出 ["pear", "grape", "kiwi", "orange"]
-  
+  slice和concat这两个方法，仅适用于对不包含引用对象的一维数组的深拷贝
+
   面向对象编程：
   JavaScript 是一种面向对象的编程语言，它采用了基于原型的面向对象编程范式。在 JavaScript 中，所有的对象都有一个原型，它们从其原型中继承属性和方法。这种基于原型的面向对象编程方式与基于类的面向对象编程方式不同。
 
@@ -411,6 +412,109 @@
   Promise：
   Promise 是一种用于处理异步操作的机制，它通过 then() 方法和 catch() 方法来处理异步操作成功和失败的结果。
   当创建一个 Promise 对象时，它的状态会从 pending（等待状态）变为 fulfilled（成功状态）或 rejected（失败状态）其中之一，这取决于异步操作的结果。如果异步操作成功，Promise 对象就会变为 fulfilled 状态，并且可以通过 then() 方法获取到异步操作的结果；如果异步操作失败，Promise 对象就会变为 rejected 状态，并且可以通过 catch() 方法获取到错误信息。
+
+  1. AJAX请求
+      function getData(url) {
+        return new Promise(function(resolve, reject){
+          const xhr = new XMLHttpRequest()
+          xhr.open('GET', url)
+          xhr.onreadystatechange = function(){
+            if(xhr.readyState === 4 && xhr.status === 200) {
+              resolve(xhr.responseText)
+            }else {
+              reject(xhr.status)
+            }
+          }
+          xhr.send()
+        })
+      }
+      getData('https://jsonplaceholder.typicode.com/todos/1')
+        .then(function(response) {
+          console.log('Success:', response);
+        })
+        .catch(function(error) {
+          console.error('Error:', error);
+        });
+  2. 定时器
+      function delay(time) {
+        return new Promise(function(resolve, reject) {
+          setTimeout(resolve, time)
+        })
+      }
+      console.log('Start')
+      delay(1000).then(function(){
+        console.log('1 second later')
+        return delay(2000)
+      }).then(function(){
+        console.log('2 seconds later')
+        return delay(3000)
+      }).then(function(){
+        console.log('3 seconds later')
+        console.log('End')
+      })
+  3. 多个异步操作顺序执行
+      function task1() {
+        return new Promise(function(resolve, reject) {
+          console.log('Task 1 start');
+          setTimeout(function() {
+            console.log('Task 1 end');
+            resolve();
+          }, 1000);
+        });
+      }
+      function task2() {
+        return new Promise(function(resolve, reject) {
+          console.log('Task 2 start');
+          setTimeout(function() {
+            console.log('Task 2 end');
+            resolve();
+          }, 2000);
+        });
+      }
+      function task3() {
+        return new Promise(function(resolve, reject) {
+          console.log('Task 3 start');
+          setTimeout(function() {
+            console.log('Task 3 end');
+            resolve();
+          }, 3000);
+        });
+      }
+      task1()
+        .then(task2)
+        .then(task3)
+        .then(function() {
+          console.log('All tasks completed');
+        });
+
+  4. Promise.all
+      function getData(url) {
+        return new Promise(function(resolve, reject) {
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', url);
+          xhr.onreadystatechange = function() {
+            console.log('xhr', xhr)
+            if (xhr.readyState === 4 && xhr.status === 200) {
+              resolve(xhr.responseText);
+            } else {
+              reject(xhr.status);
+            }
+          };
+          xhr.send();
+        });
+      }
+
+      Promise.all([
+        getData('https://jsonplaceholder.typicode.com/todos/1'),
+        getData('https://jsonplaceholder.typicode.com/todos/2'),
+        getData('https://jsonplaceholder.typicode.com/todos/3')
+      ]).then(response => {
+        console.log('response', response)
+      }).catch(err =>{
+        console.log('err', err)
+      })
+   
+
 
   async/await：
   async/await 是基于 Promise 的语法糖，它让异步操作看起来像同步操作一样，使得代码更加易读。async/await 实际上就是对 Promise 的进一步封装，它使得异步操作更加简单明了。
