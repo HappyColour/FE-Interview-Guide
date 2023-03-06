@@ -586,3 +586,22 @@
   时间复杂度：最坏情况下为$O(n^2)$，平均情况下为$O(n\log n)$
   空间复杂度：最坏情况下为$O(n)$，平均情况下为$O(\log n)$
   稳定性：不稳定排序
+
+  Vue
+  1. 源码主要分为：编译器(compiler)，核心库(core)，以及运行时(runtime)
+      编译器(compiler)：主要用于将模板(template)转换成渲染函数(render function)。模板是一段包含Vue指令的HTML代码，而渲染函数则是一个返回虚拟DOM(Virtual DOM)的JavaScript函数。
+
+      核心库(core)：主要包含Vue.js的基本功能，包括响应式系统、虚拟DOM、组件等。
+
+      运行时(runtime)：是将编译器(compiler)和核心库(core)合并后的版本，包含了所有Vue.js的功能，并且没有编译器。
+
+  2. 以下是Vue.js源码的详细分析：
+  ① 响应式系统
+  Vue.js的响应式系统是其最重要的功能之一。当数据变化时，页面会自动更新。该系统基于ES5的Object.defineProperty()方法实现。Vue.js会为每个属性创建一个dep(dependency)实例，当属性发生变化时，会通知所有依赖于该属性的watcher实例更新。Watcher是响应式系统的核心。每个Watcher实例都会监听一个数据变化，当该数据变化时，它会触发一个回调函数。
+  ② 虚拟DOM
+  Vue.js的虚拟DOM是一个JavaScript对象，用于表示真实DOM的结构。Vue.js将模板转换为虚拟DOM，然后通过对比新旧虚拟DOM的差异，最终将变化更新到真实DOM中。Vue.js的虚拟DOM采用了diff算法优化性能。
+  ③ 组件
+  Vue.js中的组件是一种抽象概念，可以被定义为可复用的代码块。每个组件都有自己的状态和行为，并且可以接收外部数据。Vue.js通过将组件树转换为虚拟DOM来实现高效的渲染。
+  ④ 模板编译
+  Vue.js的模板编译器(compiler)可以将模板转换为渲染函数(render function)，从而提高性能。Vue.js的模板语法使用了类似于HTML的标记，但具有更强的表达能力。Vue.js的模板编译器使用了类似于正则表达式的算法来解析模板，从而生成渲染函数。
+  总体来说，Vue.js的源码实现了一个高效的响应式系统，基于虚拟DOM实现了高效的渲染，同时提供了组件和模板编译等功能，可以用于构建复杂的Web应用程序。
