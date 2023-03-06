@@ -107,6 +107,7 @@
       person2.name = 'Choco'
       console.log(person.name) // print 'Danny'
       console.log(person2.name) // print 'Choco'
+  注：Object.assign()一级是深拷贝，除外是浅拷贝。
   
   III 数组：
   数组是一种非常重要的数据类型，它是一组有序的值的集合，每个值可以是任意数据类型，包括数字、字符串、布尔值、对象、函数等。
