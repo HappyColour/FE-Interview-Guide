@@ -488,34 +488,23 @@
         });
 
   4. Promise.all
-      function getData(url) {
-        return new Promise(function(resolve, reject) {
-          var xhr = new XMLHttpRequest();
-          xhr.open('GET', url);
-          xhr.onreadystatechange = function() {
-            console.log('xhr', xhr)
-            if (xhr.readyState === 4 && xhr.status === 200) {
-              resolve(xhr.responseText);
-            } else {
-              reject(xhr.status);
-            }
-          };
-          xhr.send();
-        });
+      const getAllData = async () => {
+        const url = 'https://jsonplaceholder.typicode.com/todos'
+        try {
+          let responses = await Promise.all([fetch(`${url}/1`), fetch(`${url}/2`), fetch(`${url}/3`)])
+          console.log('responses', responses)
+          let jsons = responses.map(response => response.json())
+          console.log('jsons', jsons)
+          let values = await Promise.all(jsons)
+          values.map(value => {
+            console.log(value.title)
+          })
+        } catch (err) {
+          console.log(err)
+        }
       }
-
-      Promise.all([
-        getData('https://jsonplaceholder.typicode.com/todos/1'),
-        getData('https://jsonplaceholder.typicode.com/todos/2'),
-        getData('https://jsonplaceholder.typicode.com/todos/3')
-      ]).then(response => {
-        console.log('response', response)
-      }).catch(err =>{
-        console.log('err', err)
-      })
+      getAllData()
    
-
-
   async/await：
   async/await 是基于 Promise 的语法糖，它让异步操作看起来像同步操作一样，使得代码更加易读。async/await 实际上就是对 Promise 的进一步封装，它使得异步操作更加简单明了。
   在 async 函数中，当遇到 await 关键字时，会暂停异步操作的执行，等待异步操作完成并返回结果，然后继续执行后面的代码。如果异步操作返回的是 Promise 对象，那么可以使用 await 关键字来等待 Promise 对象的状态变为 fulfilled 或 rejected。
@@ -605,3 +594,4 @@
   ④ 模板编译
   Vue.js的模板编译器(compiler)可以将模板转换为渲染函数(render function)，从而提高性能。Vue.js的模板语法使用了类似于HTML的标记，但具有更强的表达能力。Vue.js的模板编译器使用了类似于正则表达式的算法来解析模板，从而生成渲染函数。
   总体来说，Vue.js的源码实现了一个高效的响应式系统，基于虚拟DOM实现了高效的渲染，同时提供了组件和模板编译等功能，可以用于构建复杂的Web应用程序。
+
