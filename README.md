@@ -595,3 +595,60 @@
   Vue.js的模板编译器(compiler)可以将模板转换为渲染函数(render function)，从而提高性能。Vue.js的模板语法使用了类似于HTML的标记，但具有更强的表达能力。Vue.js的模板编译器使用了类似于正则表达式的算法来解析模板，从而生成渲染函数。
   总体来说，Vue.js的源码实现了一个高效的响应式系统，基于虚拟DOM实现了高效的渲染，同时提供了组件和模板编译等功能，可以用于构建复杂的Web应用程序。
 
+  Proxy：
+  ES6中的Proxy是一个非常强大的特性，它允许您拦截对对象的访问并对其进行处理。这意味着您可以在对象上设置一个代理，然后在任何时候都可以检测到对象属性的访问，并在属性被访问之前或之后执行自定义逻辑。Proxy允许您在运行时修改对象的行为。
+  
+  1. 属性拦截
+      const target = {
+        name: 'john',
+        age: 30
+      }
+      const proxy = new Proxy(target, {
+        get(target, property) {
+          if(property === 'age') {
+            throw new Error('Access denied!')
+          } else  {
+            return target[property]
+          }
+        }
+      })
+      console.log(proxy.name); // 'John'
+      console.log(proxy.age); // Error: Access denied
+  2. 函数调用拦截
+  使用Proxy，您可以拦截对对象方法的调用。例如，您可以使用Proxy来记录每次调用方法的时间：
+      const target = {
+        hello() {
+          console.log('Hello');
+        }
+      };
+
+      const proxy = new Proxy(target, {
+        apply(target, thisArg, argumentsList) {
+          console.log(`Calling ${argumentsList[0]} at ${new Date()}`);
+          return target.apply(thisArg, argumentsList);
+        }
+      });
+
+      proxy.hello('world'); // Calling world at Tue Mar 09 2023 10:00:00 GMT+0800 (China Standard Time) // Hello
+
+  3. 构造函数拦截
+  使用Proxy，您可以拦截对类的构造函数的调用。例如，您可以使用Proxy来验证构造函数的参数：
+      class Person {
+        constructor(name) {
+          this.name = name;
+        }
+      }
+
+      const proxy = new Proxy(Person, {
+        construct(target, argumentsList) {
+          if (!argumentsList[0]) {
+            throw new Error('Name is required');
+          } else {
+            return new target(...argumentsList);
+          }
+        }
+      });
+
+      const john = new proxy('John');
+      const jane = new proxy(); // Error: Name is required
+  总之，Proxy是一种强大的功能，可以用于许多用例。它允许您在运行时拦截并修改对象的行为，并且可以用于增强对象的安全性、验证和日志记录等。
