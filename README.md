@@ -652,3 +652,30 @@
       const john = new proxy('John');
       const jane = new proxy(); // Error: Name is required
   总之，Proxy是一种强大的功能，可以用于许多用例。它允许您在运行时拦截并修改对象的行为，并且可以用于增强对象的安全性、验证和日志记录等。
+
+  swtich：
+    const arr = [1,2,3,4,5,6]
+    const arrRandomIndex = Math.floor(Math.random() * arr.length)
+    const target = arr[arrRandomIndex]
+    switch (target) {
+      case 1:
+        console.log(1)
+        break
+      case 2:
+        console.log(2)
+        break
+      case 3:
+        console.log(3)
+        break
+      case 4:
+        console.log(4)
+        break
+      case 5:
+        console.log(5)
+        break
+      case 6:
+        console.log(6)
+        break
+      default:
+        console.log(target)
+    }
