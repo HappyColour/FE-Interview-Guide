@@ -733,3 +733,100 @@
       }
     }
 
+  构造函数
+    class Person {
+      a = 1
+      constructor(name, age, gender) {
+        this.name = name
+        this.age = age
+        this.gender = gender
+      }
+    }
+    const p1 = new Person("孙悟空", 16, '男')
+    const p2 = new Person("猪八戒", 17, '男')
+    const p3 = new Person("沙和尚", 18, '男')
+
+    console.log('p1', p1)
+    console.log('p2', p2)
+    console.log('p3', p3)
+
+  封装
+  主要用来保证数据安全
+  实现封装方式：
+  1. 属性是优化 #
+  2. 通过getter和setter方法来操作属性
+    class Person{
+      #name
+      #age
+      #gender
+      constructor(name, age, gender) {
+        this.#name = name
+        this.#age = age
+        this.#gender = gender
+      }
+      sayHello(){
+        console.log(this.#name)
+      }
+      get gender(){
+        return this.#gender
+      }
+      set gender(gender) {
+        this.#gender = gender
+      }
+    }
+    const p1 = new Person("孙悟空", 18, '男')
+    p1.gender = '女' // call set gender
+    console.log(p1.gender) // call get gender
+
+  多态
+  在JS中不会检查参数的类型，任何数据都可以作为参数传递
+  要调用某个函数，无需指定类型，只要对象满足条件即可
+  多态为我们提供了灵活性
+    class Person {
+      constructor(name) {
+        this.name = name
+      }
+    }
+    class Dog {
+      constructor(name){
+        this.name = name
+      }
+    }
+    const person = new Person('Danny')
+    const dog = new Dog('旺财')
+    const sayHello = obj => {
+      console.log(`Hello!,${obj.name}`)
+    }
+    sayHello(person)
+    sayHello(dog)
+  
+  继承
+  通过继承可以再不修改一个类的情况下对齐进行扩展
+  OCP开闭原则：程序应该对修改关闭，对继承开放
+  class Animals {
+    constructor(name){
+      this.name = name
+    }
+    sayHello(){
+      console.log("动物在叫~")
+    }
+  }
+  class Dog extends Animals{
+    // 重写
+    sayHello(){
+      console.log('汪汪汪')
+    }
+  }
+  class Cat extends Animals{
+    // 重写构造函数
+    consturctor(name){
+      // 重写构造函数第一行必须先写super()
+      super(name)
+      this.age = age
+    }
+  }
+  const dog = new Dog('旺财')
+  const cat = new Cat('汤姆', 3)
+  console.log(dog)
+  dog.sayHello()
+
