@@ -653,29 +653,83 @@
       const jane = new proxy(); // Error: Name is required
   总之，Proxy是一种强大的功能，可以用于许多用例。它允许您在运行时拦截并修改对象的行为，并且可以用于增强对象的安全性、验证和日志记录等。
 
-  swtich：
-    const arr = [1,2,3,4,5,6]
-    const arrRandomIndex = Math.floor(Math.random() * arr.length)
-    const target = arr[arrRandomIndex]
-    switch (target) {
-      case 1:
-        console.log(1)
-        break
-      case 2:
-        console.log(2)
-        break
-      case 3:
-        console.log(3)
-        break
-      case 4:
-        console.log(4)
-        break
-      case 5:
-        console.log(5)
-        break
-      case 6:
-        console.log(6)
-        break
-      default:
-        console.log(target)
+    swtich：
+      const arr = [1,2,3,4,5,6]
+      const arrRandomIndex = Math.floor(Math.random() * arr.length)
+      const target = arr[arrRandomIndex]
+      switch (target) {
+        case 1:
+          console.log(1)
+          break
+        case 2:
+          console.log(2)
+          break
+        case 3:
+          console.log(3)
+          break
+        case 4:
+          console.log(4)
+          break
+        case 5:
+          console.log(5)
+          break
+        case 6:
+          console.log(6)
+          break
+        default:
+          console.log(target)
+      }
+  
+  函数中的this
+  1. 函数形式调用，this指向window
+  2. 以方法的形式调用，this指向调用方法的对象
+    function fn(){
+      console.log(this)
+      console.log('fn', this)
     }
+    const obj = {
+      name: '孙悟空'
+    }
+    obj.test = fn
+    obj.test()
+    const obj2 = {
+      name: '猪八戒',
+      test: fn
+    }
+    obj2.test()
+
+  箭头函数 this
+  1. 箭头函数没有自己的this,它的this由外层作用域决定
+  2. 箭头函数的this和它的调用方式无关
+  ([参数]) => 返回值
+
+    () => 返回值
+    a => 返回值
+    (a,b) => 返回值
+
+    function fn(){
+      console.log('fn', this)
+    }
+    const fn2 = () => {
+      console.log('fn2', this)
+    }
+    // fn() window
+    // fn2() window
+
+    const obj = {
+      name: '孙悟空',
+      fn,
+      fn2,
+      sayHello(){
+        console.log(this.name)
+        function t(){
+          console.log('t', this)
+        }
+        t()
+        const t2 = () => {
+          console.log('t2', this)
+        }
+        t2()
+      }
+    }
+
