@@ -830,3 +830,7 @@
   console.log(dog)
   dog.sayHello()
 
+  
+  // https://www.zhihu.com/question/34183746
+  对象有属性__proto__，指向该对象的构造函数的原型对象。
+  方法除了有属性__proto__，还有属性prototype，prototype指向该方法的原型对象
